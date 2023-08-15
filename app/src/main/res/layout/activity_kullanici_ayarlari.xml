@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".kullanici_ayarlari">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgCircleProfil"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_account_circle"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etKullaniciAdi"
+        app:srcCompat="@drawable/ic_account_circle" />
+
+
+    <EditText
+        android:id="@+id/etKullaniciAdi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edittext_rounded_bg"
+        android:drawableLeft="@drawable/ic_action_user"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/colorAccent"
+        android:ems="10"
+        android:hint="Kullanıcı Adı"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="6dp"
+        app:layout_constraintEnd_toStartOf="@+id/imgCircleProfil"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myTextView" />
+
+    <EditText
+        android:id="@+id/etKullaniciTelefon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edittext_rounded_bg"
+        android:drawableLeft="@drawable/ic_action_phone_start"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/colorAccent"
+        android:ems="10"
+        android:hint="Telefon Numarası"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="6dp"
+        app:layout_constraintEnd_toStartOf="@+id/imgCircleProfil"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etKullaniciAdi" />
+
+    <TextView
+        android:id="@+id/tvMailAdresi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/ic_mail"
+        android:drawablePadding="6dp"
+        android:drawableTint="@color/colorAccent"
+        android:text="TextView"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etKullaniciTelefon" />
+
+    <EditText
+        android:id="@+id/etKullaniciSuankiSifre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edittext_rounded_bg"
+        android:drawableLeft="@drawable/ic_lock_open"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/colorAccent"
+        android:ems="10"
+        android:hint="Şuanki Şifreniz"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/imgCircleProfil"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMailAdresi" />
+
+    <Button
+        android:id="@+id/btnDegisiklikleriKaydet"
+        android:layout_width="203dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/buton_background"
+        android:text="Değişiklikleri Kaydet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etKullaniciSuankiSifre" />
+
+    <TextView
+        android:id="@+id/tvMailSifreGuncelle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Mail/Sifre Güncelle"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvSifremiUnuttum"
+        app:layout_constraintEnd_toStartOf="@+id/btnDegisiklikleriKaydet"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnDegisiklikleriKaydet" />
+
+    <TextView
+        android:id="@+id/tvSifremiUnuttum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Şifremi Unuttum"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDegisiklikleriKaydet"
+        app:layout_constraintEnd_toStartOf="@+id/btnDegisiklikleriKaydet"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMailSifreGuncelle" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/guncelleLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDegisiklikleriKaydet"
+        app:layout_constraintVertical_bias="0.389">
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/etYeniMail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etYeniMail"
+            app:srcCompat="@drawable/ic_mail" />
+
+        <EditText
+            android:id="@+id/etYeniMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/edittext_rounded_bg"
+            android:ems="10"
+            android:hint="Yeni Mail"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView8"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnMailGuncelle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/buton_background"
+            android:text="Güncelle"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/etYeniMail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/etYeniSifre"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etYeniSifre"
+            app:srcCompat="@drawable/ic_lock_open" />
+
+        <EditText
+            android:id="@+id/etYeniSifre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/edittext_rounded_bg"
+            android:ems="10"
+            android:hint="Yeni Şifre"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSifreGuncelle"
+            app:layout_constraintStart_toEndOf="@+id/imageView9"
+            app:layout_constraintTop_toTopOf="@+id/btnSifreGuncelle" />
+
+        <Button
+            android:id="@+id/btnSifreGuncelle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/buton_background"
+            android:text="Değiştir"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnMailGuncelle" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Not : Burada yapılan değişikliklerden sonra sisteme tekrar giriş yapmanız gerekecektir."
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etYeniSifre" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/progressPicture"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCircleProfil"
+        app:layout_constraintEnd_toEndOf="@+id/imgCircleProfil"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toStartOf="@+id/imgCircleProfil"
+        app:layout_constraintTop_toTopOf="@+id/imgCircleProfil"
+        app:layout_constraintVertical_bias="0.527" />
+
+    <ImageView
+        android:id="@+id/imgBackKullanici"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_action_arrow_left" />
+
+    <TextView
+        android:id="@+id/myTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        android:text="Kullanıcı Ayarları"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBackKullanici"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgBackKullanici"
+        app:layout_constraintTop_toTopOf="@+id/imgBackKullanici" />
+
+    <ProgressBar
+        android:id="@+id/progressGenel"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guncelleLayout" />
+</androidx.constraintlayout.widget.ConstraintLayout>
