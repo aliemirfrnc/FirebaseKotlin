@@ -4,10 +4,13 @@ import android.content.ClipData.Item
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.Window
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -17,11 +20,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var tvKullaniciAdi:TextView
     lateinit var tvKullaniciEmail:TextView
     lateinit var tvKullaniciUid:TextView
+    lateinit var imgMenu: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initAuthStateListener()
         setKullaniciBilgileri()
+
+        menuyuayarla()
 
 
     }
@@ -67,28 +73,42 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    private fun menuyuayarla() {
+        imgMenu = findViewById(R.id.imgMenu)
+        imgMenu.setOnClickListener {
 
-        when(item?.itemId){
-            R.id.menuCikisyap -> {
-                cikisyap()
-                return true
-            }
-            R.id.menuHesapAyalari -> {
-                var intent = Intent(this@MainActivity, kullanici_ayarlari::class.java)
-                startActivity(intent)
-                return true
-            }
-            R.id.menuSohbet -> {
-                var intent=Intent(this,SohbetActivity::class.java)
-                startActivity(intent)
-                return true
-            }
+            val wrapper = ContextThemeWrapper(this@MainActivity, R.style.popupMenuStyle)
+            val popupMenu = PopupMenu(wrapper, imgMenu)
 
+            popupMenu.menuInflater.inflate(R.menu.anamenu, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener{
+                override fun onMenuItemClick(item: MenuItem?): Boolean {
+                    when (item?.itemId) {
+                        R.id.menuCikisyap -> {
+                            cikisyap()
+                            return true
+                        }
+
+                        R.id.menuHesapAyalari -> {
+
+                            var intent = Intent(this@MainActivity, kullanici_ayarlari::class.java)
+                            startActivity(intent)
+                            return true
+                        }
+
+                        R.id.menuSohbet -> {
+
+                            var intent = Intent(this@MainActivity, SohbetActivity::class.java)
+                            startActivity(intent)
+                            return true
+                        }
+                        else -> return false
+                    }
+                }
+            })
+            popupMenu.show()
         }
-
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun cikisyap() {
