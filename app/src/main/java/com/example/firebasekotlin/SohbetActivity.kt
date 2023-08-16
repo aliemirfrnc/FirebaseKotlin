@@ -93,7 +93,6 @@ class SohbetActivity : AppCompatActivity() {
                         val oAnkiSohbetOdasi = SohbetOdasi(
                             sohbetodasi_id = sohbetOdasiID,
                             sohbetodasi_adi = nesneMap["sohbetodasi_adi"].toString(),
-                            seviye = nesneMap["seviye"].toString(),
                             olusturan_id = nesneMap["olusturan_id"].toString(),
                             sohbet_odasi_mesajlari = ArrayList()
                         )

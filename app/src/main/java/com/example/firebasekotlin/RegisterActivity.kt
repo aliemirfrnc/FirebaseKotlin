@@ -67,7 +67,6 @@ class RegisterActivity : AppCompatActivity() {
                         kullanici_id = FirebaseAuth.getInstance().currentUser?.uid!!,
                         profil_resmi = "",
                         telefon = "123",
-                        seviye = "1",
                         mesaj_token = "1")
 
                     FirebaseDatabase.getInstance().reference

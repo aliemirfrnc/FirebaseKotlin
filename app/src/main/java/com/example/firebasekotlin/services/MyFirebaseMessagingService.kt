@@ -60,7 +60,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
                         oAnkiSohbetOdasi.sohbetodasi_id = nesneMap.get("sohbetodasi_id").toString()
                         oAnkiSohbetOdasi.sohbetodasi_adi = nesneMap.get("sohbetodasi_adi").toString()
-                        oAnkiSohbetOdasi.seviye = nesneMap.get("seviye").toString()
                         oAnkiSohbetOdasi.olusturan_id = nesneMap.get("olusturan_id").toString()
 
                         var gorulenMesajSayisi = tekSohbetOdasi.child("odadaki_kullanicilar")
@@ -73,23 +72,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                         okunmayiBekleyenMesajSayisi = toplamMesajSayisi - gorulenMesajSayisi
 
                         bildirimGonder(baslik, icerik, oAnkiSohbetOdasi)
-
-
                     }
-
-
                 })
-
-
         }
-
-
     }
 
     private fun bildirimGonder(baslik: String?, icerik: String?, oAnkiSohbetOdasi: SohbetOdasi) {
 
         var bildirimID = notificationIDOlustur(oAnkiSohbetOdasi.sohbetodasi_id!!)
-        //  Log.e("AAA", "" + bildirimID)
 
         var pendingIntent=Intent(this,MainActivity::class.java)
         pendingIntent.flags=Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

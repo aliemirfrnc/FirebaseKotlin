@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.os.AsyncTask
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -54,22 +55,21 @@ class kullanici_ayarlari : AppCompatActivity(), ProfilResmiFragment.onProfilResi
     lateinit var myTextView:TextView
     lateinit var imgCircleProfil:CircleImageView
 
+
+
     var izinlerVerildi = false
     var galeridenGelenURI: Uri? = null
     var kameradanGelenBitmap: Bitmap? = null
     val MEGABYTE = 1000000.toDouble()
 
     override fun getResimYolu(resimPath: Uri?) {
-
         galeridenGelenURI = resimPath
         Picasso.get().load(galeridenGelenURI).resize(100, 100).into(imgCircleProfil)
     }
 
     override fun getResimBitmap(bitmap: Bitmap) {
-
         kameradanGelenBitmap = bitmap
         imgCircleProfil.setImageBitmap(bitmap)
-        // Picasso.with(this).load(bitmap)
     }
 
     inner class BackgroundResimCompress : AsyncTask<Uri, Double, ByteArray?> {
@@ -137,15 +137,14 @@ class kullanici_ayarlari : AppCompatActivity(), ProfilResmiFragment.onProfilResi
     private fun uploadResimtoFirebase(result: ByteArray?) {
 
         progressGoster()
+        val storageReferans = FirebaseStorage.getInstance().getReference()
+        val resimEklenecekYer = storageReferans.child("images/users" + FirebaseAuth.getInstance().currentUser?.uid + "/profile_resim")
 
-        var storageReferans = FirebaseStorage.getInstance().getReference()
-        var resimEklenecekYer =
-            storageReferans.child("images/users" + FirebaseAuth.getInstance().currentUser?.uid + "/profile_resim")
-
-        var uploadGorevi = resimEklenecekYer.putBytes(result!!)
+        val uploadGorevi = resimEklenecekYer.putBytes(result!!)
 
         uploadGorevi.addOnSuccessListener { taskSnapshot ->
-            taskSnapshot.storage.downloadUrl.addOnSuccessListener { uri ->
+            // Profil resmi başarıyla yüklendi, indirme URL'sini alalım
+            resimEklenecekYer.downloadUrl.addOnSuccessListener { uri ->
                 val firebaseURL = uri.toString()
 
                 FirebaseDatabase.getInstance().reference
@@ -153,18 +152,28 @@ class kullanici_ayarlari : AppCompatActivity(), ProfilResmiFragment.onProfilResi
                     .child(FirebaseAuth.getInstance().currentUser?.uid!!)
                     .child("profil_resmi")
                     .setValue(firebaseURL)
-
-                Toast.makeText(this@kullanici_ayarlari, "Değişiklikler Yapıldı", Toast.LENGTH_SHORT).show()
-                progressGizle()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this@kullanici_ayarlari, "Profil resmi başarıyla güncellendi", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this@kullanici_ayarlari, "Profil resmi güncellenirken hata oluştu", Toast.LENGTH_SHORT).show()
+                        }
+                        progressGizle()
+                    }
             }.addOnFailureListener { exception ->
+                // URL alınamadı, hata mesajını logla
+                Log.e("Firebase Storage", "Resim URL'si alınamadı: ${exception.message}")
                 Toast.makeText(this@kullanici_ayarlari, "Resim yüklenirken hata oluştu", Toast.LENGTH_SHORT).show()
+                progressGizle()
             }
         }.addOnFailureListener { exception ->
+            // Resim yükleme başarısız oldu, hata mesajını logla
+            Log.e("Firebase Storage", "Resim yüklenirken hata: ${exception.message}")
             Toast.makeText(this@kullanici_ayarlari, "Resim yüklenirken hata oluştu", Toast.LENGTH_SHORT).show()
+            progressGizle()
         }
-
-
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -355,16 +364,14 @@ class kullanici_ayarlari : AppCompatActivity(), ProfilResmiFragment.onProfilResi
     }
 
     private fun fotografCompressed(galeridenGelenURI: Uri) {
-        var compressed = BackgroundResimCompress()
+        val compressed = BackgroundResimCompress()
         compressed.execute(galeridenGelenURI)
     }
 
     private fun fotografCompressed(kameradanGelenBitmap: Bitmap) {
-
-        var compressed = BackgroundResimCompress(kameradanGelenBitmap)
-        var uri: Uri? = null
+        val compressed = BackgroundResimCompress(kameradanGelenBitmap)
+        val uri: Uri? = null
         compressed.execute(uri)
-
     }
 
     private fun izinleriIste() {
@@ -437,7 +444,7 @@ class kullanici_ayarlari : AppCompatActivity(), ProfilResmiFragment.onProfilResi
                     var okunanKullanici = singleSnapshot.getValue(Kullanici::class.java)
                     etKullaniciAdi.setText(okunanKullanici?.isim)
                     etKullaniciTelefon.setText(okunanKullanici?.telefon)
-                    if (okunanKullanici?.profil_resmi.isNullOrEmpty()) {
+                    if (okunanKullanici?.profil_resmi != null) {
                         Picasso.get().load(galeridenGelenURI).resize(100, 100).into(imgCircleProfil)
                     } else {
                         Picasso.get().load(okunanKullanici?.profil_resmi).resize(100, 100)

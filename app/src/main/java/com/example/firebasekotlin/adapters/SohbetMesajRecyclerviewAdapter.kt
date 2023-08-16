@@ -8,8 +8,10 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.firebasekotlin.R
+import com.example.firebasekotlin.model.Kullanici
 import com.example.firebasekotlin.model.SohbetMesaj
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -42,7 +44,7 @@ class SohbetMesajRecyclerviewAdapter(context: Context, tumMesajlar:ArrayList<Soh
     override fun onBindViewHolder(holder: SohbetMesajViewHolder, position: Int) {
 
         var oanKiMesaj = myTumMesajlar.get(position)
-        holder?.setData(oanKiMesaj, position)
+        holder?.setData(oanKiMesaj,position)
 
     }
 
@@ -67,14 +69,20 @@ class SohbetMesajRecyclerviewAdapter(context: Context, tumMesajlar:ArrayList<Soh
         val tarih = tumLayout.findViewById<TextView>(R.id.tvMesajTarih)
 
 
-        fun setData(oanKiMesaj: SohbetMesaj, position: Int) {
+        fun setData(oanKiMesaj: SohbetMesaj,position: Int) {
             mesaj.text = oanKiMesaj.mesaj
+
             isim.text = oanKiMesaj.adi
+
 
             val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale("tr"))
             val parsedDate = format.parse(oanKiMesaj.timestamp)
             val timestamp = java.sql.Time(parsedDate.time)
             tarih.text = timestamp.toString()
+
+
+
+
         }
     }
 

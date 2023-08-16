@@ -54,36 +54,6 @@ class SohbetOdasiRecyclerViewAdapter(private val mActivity: AppCompatActivity, p
                 mActivity.startActivity(intent)
             }
 
-
-            tekSatirSohbetOdasi.setOnClickListener {
-                var kullanici = FirebaseAuth.getInstance().currentUser
-                var seviye = 0
-                var ref = FirebaseDatabase.getInstance().reference
-                    .child("kullanici")
-                    .orderByKey()
-                    .equalTo(kullanici?.uid)
-                ref.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onCancelled(error: DatabaseError) {
-                    }
-
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        for (tekKullanici in snapshot.children) {
-                            var okunanKullanici = tekKullanici.getValue(Kullanici::class.java)
-                            var seviye = okunanKullanici?.seviye?.toInt() ?: 0
-
-                            if (oAnOlusturulanSohbetOdasi.seviye?.toInt() ?: 0 <= seviye) {
-                                kullaniciyiSohbetOdasinaKaydet(oAnOlusturulanSohbetOdasi)
-                                var intent = Intent(mActivity, SohbetOdasiActivity::class.java)
-                                intent.putExtra("sohbet_odasi_id", oAnOlusturulanSohbetOdasi.sohbetodasi_id)
-                                mActivity.startActivity(intent)
-                            } else {
-                                Toast.makeText(mActivity, "Seviyeniz yeterli değil", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-                })
-            }
-
             sohbetOdasiMesajSayisi.text = "Toplam Mesaj Sayısı: " + (oAnOlusturulanSohbetOdasi.sohbet_odasi_mesajlari?.size ?: 0).toString()
 
             var ref = FirebaseDatabase.getInstance().reference
