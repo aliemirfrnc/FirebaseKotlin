@@ -25,8 +25,6 @@ class LoginActivity : AppCompatActivity() {
 
 
         val tvKayitOl = findViewById<TextView>(R.id.tvKayitOl)
-        val tvOnaymailiniTekrarGonder = findViewById<TextView>(R.id.tvOnaymailiniTekrarGonder)
-        val tvSifreTekrarYolla = findViewById<TextView>(R.id.tvSifreTekrarYolla)
         val etMail = findViewById<EditText>(R.id.etMail)
         val etSifre = findViewById<EditText>(R.id.etSifre)
         val btnGirisYap = findViewById<Button>(R.id.btnGirisYap)
